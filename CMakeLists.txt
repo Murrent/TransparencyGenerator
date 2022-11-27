@@ -6,7 +6,28 @@ set(CMAKE_CXX_STANDARD 17)
 set(dir ${CMAKE_CURRENT_SOURCE_DIR})
 set(src ${dir}/src)
 
-add_executable(TransparencyGenerator src/main.cpp src/FileManager.cpp src/FileManager.hpp src/ImageEditor.cpp src/ImageEditor.hpp src/GUI.cpp src/GUI.hpp src/AppManager.cpp src/AppManager.hpp)
+add_executable(TransparencyGenerator
+        src/main.cpp
+        src/FileManager.cpp
+        src/FileManager.hpp
+        src/ImageEditor.cpp
+        src/ImageEditor.hpp
+        src/GUI.cpp
+        src/GUI.hpp
+        src/AppManager.cpp
+        src/AppManager.hpp
+        src/ui_components/Interactive.cpp
+        src/ui_components/Interactive.hpp
+        src/ui_components/Button.cpp
+        src/ui_components/Button.hpp
+        src/ui_components/List.cpp
+        src/ui_components/List.hpp
+        src/ui_components/Slider.cpp
+        src/ui_components/Slider.hpp
+        src/ui_components/ImagePreview.cpp
+        src/ui_components/ImagePreview.hpp
+        src/ui_components/Panel.cpp
+        src/ui_components/Panel.hpp)
 
 include_directories(headers /usr/include c:/SFML/include)
 #include_directories(box2d C:/Users/Martin/Downloads/box2d-master/include)
