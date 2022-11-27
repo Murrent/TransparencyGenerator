@@ -6,16 +6,21 @@ void FileManager::setFolder(const std::string &path) {
     this->directoryIterator = fs::directory_iterator(path.c_str());
 }
 
+std::string FileManager::getFolder() {
+    return this->directoryIterator->path().parent_path().string();
+}
+
 bool FileManager::selectFile(const std::string &filename) {
-    // Finding the file
-    std::any_of(begin(this->directoryIterator), end(this->directoryIterator), [&](const auto &entry) {
-        return entry.path().filename() == filename;
-    });
+    for (const auto &entry : directoryIterator) {
+        if (entry.path().filename().string() == filename) {
+            return true;
+        }
+    }
     return false;
 }
 
-bool FileManager::saveFile(const std::string &filename, const sf::Image &image) {
-    bool saveSuccessful = image.saveToFile(filename + this->saveFormat);
+bool FileManager::saveFile(const std::string &filepath, const sf::Image &image) {
+    bool saveSuccessful = image.saveToFile(filepath + "." + this->saveFormat);
     if (saveSuccessful)
         return true;
     return false;
@@ -33,7 +38,7 @@ std::vector<std::string> FileManager::getFolders() {
     std::vector<std::string> folders;
     std::for_each(begin(this->directoryIterator), end(this->directoryIterator), [&](const auto &entry) {
         if (entry.is_directory())
-            folders.push_back(entry.path().filename());
+            folders.push_back(entry.path().filename().string());
     });
     return folders;
 }
@@ -41,10 +46,11 @@ std::vector<std::string> FileManager::getFolders() {
 std::vector<std::string> FileManager::getImages() {
     std::vector<std::string> images;
     std::for_each(begin(this->directoryIterator), end(this->directoryIterator), [&](const auto &entry) {
-        if (entry.extension() == ".png" || entry.extension() == ".jpg" ||
-            entry.extension() == ".bmp" || entry.extension() == ".tga")
-            images.push_back(entry.path().filename());
+        std::string extension = entry.path().extension().string();
+        if (extension == ".png" || extension == ".jpg" || extension == ".bmp" || extension == ".tga")
+            images.push_back(entry.path().filename().string());
     });
     return images;
 }
+
 

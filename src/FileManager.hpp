@@ -15,9 +15,11 @@ public:
 
     void setFolder(const std::string &path);
 
+    std::string getFolder();
+
     bool selectFile(const std::string &filename);
 
-    bool saveFile(const std::string &filename, const sf::Image &image);
+    bool saveFile(const std::string &filepath, const sf::Image &image);
 
     bool setSaveFormat(const std::string &format);
 
