@@ -8,6 +8,8 @@ private:
     FileManager fileManager;
     ImageEditor imageEditor;
 
+    bool loadFile(const std::string &fullPath);
+
 public:
     AppManager();
 

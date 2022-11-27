@@ -1,5 +1,9 @@
 #include "AppManager.hpp"
 
+bool AppManager::loadFile(const std::string &fullPath) {
+    return imageEditor.loadImage(fullPath);
+}
+
 AppManager::AppManager() : fileManager(), imageEditor() {}
 
 void AppManager::setFolder(const std::string &path) {
@@ -9,14 +13,16 @@ void AppManager::setFolder(const std::string &path) {
 bool AppManager::selectFile(const std::string &filename) {
     bool fileExists = fileManager.selectFile(filename);
     if (fileExists) {
-        imageEditor.loadImage(filename);
-        return true;
+        std::string fullPath = fileManager.getFolder() + "/" + filename;
+        bool loadResult = loadFile(fullPath);
+        return loadResult;
     }
     return false;
 }
 
 bool AppManager::saveFile(const std::string &filename) {
-    bool saveSuccessful = fileManager.saveFile(filename, imageEditor.getOriginalImage());
+    std::string fullPath = fileManager.getFolder() + "/" + filename;
+    bool saveSuccessful = fileManager.saveFile(fullPath, imageEditor.getEditedImage());
     if (saveSuccessful)
         return true;
     return false;
